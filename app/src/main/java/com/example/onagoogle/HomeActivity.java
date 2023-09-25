@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.annotations.Nullable;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -36,6 +38,7 @@ public class HomeActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     private long backPressedTime;
     private Toast backToast;
+    private static final int EMAIL_REQUEST_CODE = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,15 @@ public class HomeActivity extends AppCompatActivity {
                 openDictionaryEntryDialog();
             }
         });
+
+        imgButtonGivingFeedback = findViewById(R.id.imgButtonGivingFeedback);
+        imgButtonGivingFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendFeedback();
+            }
+        });
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 /*.requestIdToken(getString(R.string.default_web_client_id))*/
@@ -92,6 +104,36 @@ public class HomeActivity extends AppCompatActivity {
 
         backPressedTime = System.currentTimeMillis();
     }
+
+    private void sendFeedback() {
+        String[] recipientEmails = {"dtc195480103dt0003@ictu.edu.vn"};
+        String subject = "Phản hồi từ người dùng ứng dụng Ôn B1";
+        String body = "Xin chào,\n\nTôi muốn gửi phản hồi về ứng dụng của bạn:\n";
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_EMAIL, recipientEmails);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, body);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, EMAIL_REQUEST_CODE);
+        } else {
+            Toast.makeText(this, "Không tìm thấy ứng dụng email.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == EMAIL_REQUEST_CODE) {
+
+            Toast.makeText(this, "Gửi email thành công.", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
 
     @Override
     public void onBackPressed() {
