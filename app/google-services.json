@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "845464878481",
+    "project_id": "ona-59312",
+    "storage_bucket": "ona-59312.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845464878481:android:69c5e3f023b009f4856e30",
+        "android_client_info": {
+          "package_name": "com.example.onagoogle"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIgJRQT8KwvycsLQyPzyg6ElzaUmr6Lxg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

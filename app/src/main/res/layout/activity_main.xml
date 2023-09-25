@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="582dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo" />
+
+    <ImageButton
+        android:id="@+id/signInGoogle"
+        android:layout_width="wrap_content"
+        android:layout_height="82dp"
+        android:layout_above="@+id/btnNotLogin"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="-24dp"
+        android:layout_marginBottom="19dp"
+        android:src="@drawable/google_login1"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="208dp" />
+
+    <Button
+        android:id="@+id/btnNotLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="136dp"
+        android:backgroundTint="#9E2B2626"
+        android:gravity="center"
+        android:text="Không đăng nhập" />
+
+</RelativeLayout>
