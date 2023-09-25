@@ -2,6 +2,7 @@ package com.example.onagoogle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +34,9 @@ public class HomeActivity extends AppCompatActivity {
     Button logout;
     GoogleSignInOptions gso;
     GoogleSignInClient mGoogleSignInClient;
+    private long backPressedTime;
+    private Toast backToast;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
         signInGoogle = findViewById(R.id.signInGoogle);
         name = findViewById(R.id.name);
         mail = findViewById(R.id.mail);
-        logout= findViewById(R.id.btnLogout);
+        logout = findViewById(R.id.btnLogout);
 
         imgButtonLookupDictionary.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,18 +68,14 @@ public class HomeActivity extends AppCompatActivity {
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
-
         if (account != null) {
             String Name = account.getDisplayName();
-            String Mail= account.getEmail();
+            String Mail = account.getEmail();
 
             name.setText(Name);
             mail.setText(Mail);
             signInGoogle.setVisibility(View.GONE);
-
-
-        }
-        else {
+        } else {
             name.setText(null);
             mail.setText(null);
 
@@ -84,20 +84,33 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             });
             logout.setVisibility(View.GONE);
-
         }
 
         logout.setOnClickListener(v -> {
             showLogoutConfirmationDialog();
-            //SignOut();
-            //logout.setVisibility(View.GONE);
         });
+
+        backPressedTime = System.currentTimeMillis();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            backToast.cancel();
+            super.onBackPressed();
+            return;
+        } else {
+            backToast = Toast.makeText(getBaseContext(), "Nhấn quay lại lần nữa để thoát ứng dụng", Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+
+        backPressedTime = System.currentTimeMillis();
     }
 
     private void openDictionaryEntryDialog() {
-        //Intent intent = new Intent(HomeActivity.this, DictionaryActivity.class);
-        // startActivity(intent);
+        // Implement your logic for opening the dictionary entry dialog here
     }
+
     private void showLogoutConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Xác nhận đăng xuất");
