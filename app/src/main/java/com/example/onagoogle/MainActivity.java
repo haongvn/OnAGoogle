@@ -86,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
                                 if(task.isSuccessful()){
                                     Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
                                     startActivity(intent);
-                                    finish(); // Kết thúc MainActivity
+                                    finish();
+                                    Toast.makeText(MainActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                                 }else {
                                     Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
