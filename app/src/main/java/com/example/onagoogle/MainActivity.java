@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.onagoogle.database.DatabaseUtils;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -35,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        DatabaseUtils.copyDatabaseFromAssets(this, "englishdictionary.db");
 
         // Kiểm tra xem người dùng đã đăng nhập Google hay chưa
         GoogleSignInAccount lastSignedInAccount = GoogleSignIn.getLastSignedInAccount(this);
@@ -108,4 +112,5 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
 }
